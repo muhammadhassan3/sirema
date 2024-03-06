@@ -109,17 +109,12 @@ namespace sirema
             if(tbSearch.Text == "")
             {
                 lsJurusan.DataSource = jurusan.getAll();
+                tbKode.Text = jurusan.getNextId();
             }
             else
             {
                 lsJurusan.DataSource = jurusan.findDataByName(tbSearch.Text);
             }
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            tbKode.Text = jurusan.getNextId();
-            tbNama.Focus() ;
         }
 
         private void lsJurusan_CellClick(object sender, DataGridViewCellEventArgs e)

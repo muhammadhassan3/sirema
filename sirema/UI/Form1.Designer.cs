@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tbKode = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -37,7 +37,6 @@
             this.btnUbah = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.lsJurusan = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.tbSearch = new System.Windows.Forms.TextBox();
             this.col_kode = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -124,14 +123,14 @@
             this.lsJurusan.AllowUserToAddRows = false;
             this.lsJurusan.AllowUserToDeleteRows = false;
             this.lsJurusan.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.lsJurusan.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.lsJurusan.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.lsJurusan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.lsJurusan.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_kode,
@@ -146,17 +145,6 @@
             this.lsJurusan.TabIndex = 8;
             this.lsJurusan.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lsJurusan_CellClick);
             this.lsJurusan.Paint += new System.Windows.Forms.PaintEventHandler(this.lsJurusan_Paint);
-            // 
-            // button1
-            // 
-            this.button1.AutoSize = true;
-            this.button1.Location = new System.Drawing.Point(428, 385);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(111, 26);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Dapatkan Kode";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // label3
             // 
@@ -200,7 +188,6 @@
             this.ClientSize = new System.Drawing.Size(880, 500);
             this.Controls.Add(this.tbSearch);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.lsJurusan);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnUbah);
@@ -229,7 +216,6 @@
         private System.Windows.Forms.Button btnUbah;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.DataGridView lsJurusan;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tbSearch;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_kode;
