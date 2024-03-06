@@ -53,10 +53,52 @@ namespace sirema.Model
             return result;
         }
 
-        public int simpanData()
+        public int addData()
         {
             int result = -1;
+            query = $"insert into jurusan(kode_jurusan, nama_jurusan) values('{kodeJurusan}','{namaJurusan}')";
 
+            try
+            {
+                result = connection.exec(query);
+                if (result < 0)
+                {
+                    throw new Exception("Data gagal disimpan");
+                }
+            }catch (Exception e) { Console.WriteLine(e.Message); }
+            return result;
+        }
+        public int updateData()
+        {
+            int result = -1;
+            query = $"update jurusan set nama_jurusan = '{namaJurusan}' where kode_jurusan='{kodeJurusan}'";
+
+            try
+            {
+                result = connection.exec(query);
+                if (result < 0)
+                {
+                    throw new Exception("Data gagal disimpan");
+                }
+            }
+            catch (Exception e) { Console.WriteLine(e.Message); }
+            return result;
+        }
+
+        public int deleteData()
+        {
+            int result = -1;
+            query = $"delete from jurusan where kode_jurusan='{kodeJurusan}'";
+
+            try
+            {
+                result = connection.exec(query);
+                if (result < 0)
+                {
+                    throw new Exception("Data gagal disimpan");
+                }
+            }
+            catch (Exception e) { Console.WriteLine(e.Message); }
             return result;
         }
     }
