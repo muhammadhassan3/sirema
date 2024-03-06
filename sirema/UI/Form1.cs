@@ -37,9 +37,9 @@ namespace sirema
                 if (jurusan.addData() > 0)
                 {
                     MessageBox.Show("Data berhasil disimpan");
-                    tbKode.Text = string.Empty;
-                    tbNama.Text = string.Empty;
-                    tbKode.Focus();
+                    clear();
+                    tbNama.Focus();
+                    showData();
                 }
                 else
                 {
@@ -59,9 +59,9 @@ namespace sirema
                 if (jurusan.updateData() > 0)
                 {
                     MessageBox.Show("Data berhasil diubah");
-                    tbKode.Text = string.Empty;
-                    tbNama.Text = string.Empty;
-                    tbKode.Focus();
+                    clear();
+                    tbNama.Focus();
+                    showData();
                 }
                 else
                 {
@@ -77,13 +77,13 @@ namespace sirema
             {
                 jurusan.KodeJurusan = tbKode.Text;
                 jurusan.NamaJurusan = tbNama.Text;
-
+                if(MessageBox.Show("Apakah kamu yakin akan menghapus data?", "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 if (jurusan.deleteData() > 0)
                 {
                     MessageBox.Show("Data berhasil dihapus");
-                    tbKode.Text = string.Empty;
-                    tbNama.Text = string.Empty;
-                    tbKode.Focus();
+                    tbNama.Focus();
+                    clear();
+                    showData();
                 }
                 else
                 {
@@ -91,6 +91,89 @@ namespace sirema
                 }
             }
             else MessageBox.Show("Data tidak tersedia");
+        }
+
+        private void clear()
+        {
+            tbKode.Text = string.Empty;
+            tbNama.Text = string.Empty;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            showData();
+        }
+
+        private void showData()
+        {
+            if(tbSearch.Text == "")
+            {
+                lsJurusan.DataSource = jurusan.getAll();
+            }
+            else
+            {
+                lsJurusan.DataSource = jurusan.findDataByName(tbSearch.Text);
+            }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            tbKode.Text = jurusan.getNextId();
+            tbNama.Focus() ;
+        }
+
+        private void lsJurusan_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.RowIndex < 0)
+            {
+                return;
+            }
+            string id = lsJurusan.Rows[e.RowIndex].Cells[0].Value.ToString();
+            string name = lsJurusan.Rows[e.RowIndex].Cells[1].Value.ToString();
+
+            tbKode.Text = id;
+            tbNama.Text = name;
+
+            tbNama.Focus();
+        }
+
+        private void tbNama_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.S && e.Control)
+            {
+                btnSave.PerformClick();
+            }else if(e.KeyCode == Keys.Delete)
+            {
+                btnDelete.PerformClick();
+            }
+        }
+
+        private void setRowTheme()
+        {
+            foreach(DataGridViewRow row in lsJurusan.Rows)
+            {
+                foreach(DataGridViewCell cell in row.Cells)
+                {
+                    if(row.Index %2 == 0)
+                    {
+                        cell.Style.BackColor = Color.AliceBlue;
+                    }
+                    else
+                    {
+                        cell.Style.BackColor = Color.CadetBlue;
+                    }
+                }
+            }
+        }
+
+        private void lsJurusan_Paint(object sender, PaintEventArgs e)
+        {
+            setRowTheme();
+        }
+
+        private void tbSearch_TextChanged(object sender, EventArgs e)
+        {
+            showData();
         }
     }
 }

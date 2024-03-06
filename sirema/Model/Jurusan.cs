@@ -101,5 +101,35 @@ namespace sirema.Model
             catch (Exception e) { Console.WriteLine(e.Message); }
             return result;
         }
+
+        public DataTable getAll()
+        {
+            query = "select * from jurusan";
+            tmp = connection.execQuery(query);
+            return tmp;
+        }
+
+        public string getNextId()
+        {
+            int result = -1;
+            query = "select coalesce(cast(max(kode_jurusan) as int)+1,1) from jurusan";
+            tmp = connection.execQuery(query);
+            
+            if(tmp.Rows.Count > 0)
+            {
+                foreach(DataRow row in tmp.Rows)
+                {
+                    result = int.Parse(row[0].ToString());
+                }
+            }
+            return result.ToString("00.");
+        }
+
+        public DataTable findDataByName(string name)
+        {
+            query = $"select * from jurusan where lower(nama_jurusan) like '%{name.ToLower()}%'";
+            tmp = connection.execQuery(query);
+            return tmp;
+        }
     }
 }
