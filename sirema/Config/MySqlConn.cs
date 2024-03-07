@@ -1,39 +1,41 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using Npgsql;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Npgsql;
-
 namespace sirema.Config
 {
-    internal class Connection : Config
+    
+    internal class MySqlConn: Config
     {
+        MySqlCommand cmd;
+        MySqlConnection con;
+        MySqlDataAdapter adapter;
+        const string link = "server=localhost;port=3306;uid=root;pwd=;database=sirema";
 
-        NpgsqlCommand cmd;
-        NpgsqlConnection con;
-        NpgsqlDataAdapter adapter;
-
-        public Connection()
+        public MySqlConn()
         {
-            con = new NpgsqlConnection(
-                connectionString: "Server=localhost;Port=5432;User Id=postgres;Password=root;Database=sirema"
+            con = new MySqlConnection(
+                link
             );
-            cmd = new NpgsqlCommand();
-            adapter = new NpgsqlDataAdapter();
+            cmd = new MySqlCommand();
+            adapter = new MySqlDataAdapter();
         }
 
         void open()
         {
             try
             {
-                if(con.State == ConnectionState.Closed)
+                if (con.State == ConnectionState.Closed)
                 {
                     con.Open();
                 }
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
@@ -53,7 +55,7 @@ namespace sirema.Config
                 cmd.CommandText = query;
                 result = cmd.ExecuteNonQuery();
             }
-            catch(Exception e) { Console.WriteLine(e.Message); }
+            catch (Exception e) { Console.WriteLine(e.Message); }
             finally { close(); }
             return result;
         }

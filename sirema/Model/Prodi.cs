@@ -1,53 +1,57 @@
 ﻿using sirema.Config;
 using System;
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace sirema.Model
 {
-    internal class Jurusan
+    internal class Prodi
     {
+        private string kodeProdi;
+        private string namaProdi;
         private string kodeJurusan;
-        private string namaJurusan;
         PostgresConnection connection;
         DataTable tmp;
 
         string query;
 
-        public Jurusan()
-        {
+        public Prodi()
+        { 
             kodeJurusan = string.Empty;
-            namaJurusan= string.Empty;
+            kodeProdi = string.Empty;
+            namaProdi = string.Empty;
             connection = new PostgresConnection();
             query = string.Empty;
             tmp = new DataTable();
         }
 
-        public string KodeJurusan
+        public string KodeProdi
         {
-            set { kodeJurusan = value;}
-            get { return kodeJurusan;}
+            set { kodeProdi = value; }
         }
 
-        public string NamaJurusan
+        public string NamaProdi
         {
-            set { namaJurusan = value; }
-            get { return namaJurusan;}
+            set { namaProdi = value; }
         }
+
+        public string KodeJurusan
+        {
+            set { kodeJurusan = value; }
+        }
+
 
         public bool isExist(string kode)
         {
             bool result = false;
-            query = "select * from jurusan where kode_jurusan = '" + kode+"'";
+            query = "select * from prodi where kode_prodi = '" + kode + "'";
 
             tmp = connection.execQuery(query);
 
-            if(tmp.Rows.Count > 0)
+            if (tmp.Rows.Count > 0)
             {
                 result = true;
             }
@@ -55,32 +59,37 @@ namespace sirema.Model
             return result;
         }
 
-        public int addData()
+        public int addProdi()
         {
             int result = -1;
-            query = $"insert into jurusan(kode_jurusan, nama_jurusan) values('{kodeJurusan}','{namaJurusan}')";
+            query = $"insert into prodi(kode_prodi, nama_prodi, kode_jurusan) values ('{kodeProdi}','{namaProdi}','{kodeJurusan}')";
 
             try
             {
-                result = connection.exec(query);
-                if (result < 0)
+                result = connection.exec(query) ;
+
+                if( result < 0)
                 {
                     throw new Exception("Data gagal disimpan");
                 }
-            }catch (Exception e) { Console.WriteLine(e.Message); }
+            }catch (Exception ex)
+            {
+
+            }
             return result;
         }
-        public int updateData()
+
+        public int updateData(string namaProdi, string kodeJurusan)
         {
             int result = -1;
-            query = $"update jurusan set nama_jurusan = '{namaJurusan}' where kode_jurusan='{kodeJurusan}'";
+            query = $"update prodi set nama_prodi = '{namaProdi}', kode_jurusan ='{kodeJurusan}' where kode_prodi='{kodeProdi}'";
 
             try
             {
                 result = connection.exec(query);
                 if (result < 0)
                 {
-                    throw new Exception("Data gagal disimpan");
+                    throw new Exception("Data gagal diubah");
                 }
             }
             catch (Exception e) { Console.WriteLine(e.Message); }
@@ -90,14 +99,14 @@ namespace sirema.Model
         public int deleteData()
         {
             int result = -1;
-            query = $"delete from jurusan where kode_jurusan='{kodeJurusan}'";
+            query = $"delete from prodi where kode_prodi='{kodeProdi}'";
 
             try
             {
                 result = connection.exec(query);
                 if (result < 0)
                 {
-                    throw new Exception("Data gagal disimpan");
+                    throw new Exception("Data gagal dihapus");
                 }
             }
             catch (Exception e) { Console.WriteLine(e.Message); }
@@ -106,7 +115,7 @@ namespace sirema.Model
 
         public DataTable getAll()
         {
-            query = "select * from jurusan";
+            query = "select * from prodi";
             tmp = connection.execQuery(query);
             return tmp;
         }
@@ -114,12 +123,12 @@ namespace sirema.Model
         public string getNextId()
         {
             int result = -1;
-            query = "select coalesce(cast(max(kode_jurusan) as int)+1,1) from jurusan";
+            query = "select coalesce(cast(max(kode_prodi) as int)+1,1) from prodi";
             tmp = connection.execQuery(query);
-            
-            if(tmp.Rows.Count > 0)
+
+            if (tmp.Rows.Count > 0)
             {
-                foreach(DataRow row in tmp.Rows)
+                foreach (DataRow row in tmp.Rows)
                 {
                     result = int.Parse(row[0].ToString());
                 }
@@ -129,7 +138,7 @@ namespace sirema.Model
 
         public DataTable findDataByName(string name)
         {
-            query = $"select * from jurusan where lower(nama_jurusan) like '%{name.ToLower()}%'";
+            query = $"select * from prodi where lower(nama_prodi) like '%{name.ToLower()}%'";
             tmp = connection.execQuery(query);
             return tmp;
         }
